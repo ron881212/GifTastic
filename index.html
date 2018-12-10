@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+    crossorigin="anonymous">
+    <script
+    src="https://code.jquery.com/jquery-3.3.1.min.js"
+    integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" 
+    crossorigin="anonymous"></script>
+    <title>Gif Tastic</title>
+</head>
+
+<body>
+    <div class="container">
+            <div class="jumbotron">
+                    <h1 class="display-4">Seacrh Your Favorite Gifs Here</h1>
+                    <p class="lead"></p>
+                    <hr class="my-4">
+                    <p>Powered by <a href="https://giphy.com/" target="_blank">GIPHY</a></p>
+                  </div>
+        <form id="gifsHere">
+            <div class="form-group">
+                <label for="exampleFormControlInput1">Scearch Gifs</label>
+                <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="type gifs here">
+            </div>
+            <div class="form-group">
+                <label for="exampleFormControlSelect1">How many Gifs</label>
+                <select class="form-control" id="returnedGifs">
+                    <option>1</option>
+
+                    <option>5</option>
+
+                    <option>10</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="exampleFormControlSelect1">subjects</label>
+                <select class="form-control" id="subjects">
+                    <option>Gifs</option>
+
+                    <option>TBD</option>
+
+                    <option>TBD</option>
+                </select>
+            </div>
+            <button id="searchGifs" type="button" class="btn btn-primary btn-lg">Search</button>
+            <button id="clearGifs" type="button" class="btn btn-secondary btn-lg">Clear</button>
+        </form>
+    </div>
+
+    <script src="./assets/javascript/app.js"></script>
+</body>
+
+</html>
