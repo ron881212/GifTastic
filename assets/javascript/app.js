@@ -1,18 +1,21 @@
 // SETUP VARIABLES
 //============================================================
-var topic =     ["cats", "dogs", "birds", "pigs"];
+var topic   =   ["cats", "dogs", "birds", "pigs"];
 var urlBase =   "http://api.giphy.com/v1/gifs/search?q=";
-var sample =    "ryan+gosling";
-var apikey =    "&api_key=AVVldwR8KOjAphb70VEpxVkX0ffpBPTR";
+var sample  =   "ryan+gosling";
+var apikey  =   "&api_key=AVVldwR8KOjAphb70VEpxVkX0ffpBPTR";
 // limit is set to user yet, only 5
-var limit =     "limit=5";
+var limit   =   "limit=5";
+var favs    =   [];
 var userInput;
 var subject;
 var queryURL;
-var gifCards;
+var gifCard;
 var gifBox;
+
 // FUNCTIONS
 //============================================================
+
 function getGifs(subject){
     $.ajax({
         url: urlBase + subject + apikey,
@@ -22,21 +25,37 @@ function getGifs(subject){
         // console.log(response.data[2].images.fixed_height_still.url);
         console.log(urlBase + subject + apikey);
             for(let i = 0; i < 5; i++){
-                var gifStill = response.data[i].images.fixed_height_still.url;
-                var gifAnimate = response.data[i].images.fixed_height.url;
+                gifStill = response.data[i].images.fixed_height_still.url;
+                gifAnimate = response.data[i].images.fixed_height.url;
                 var gifRating = response.data[i].rating;
                 // gif.attr("src", gifResponse);
                 // $("#gifsHere").append(gif);
                 gifBox = $("<div>");
-                gifCards = ('<div class="card mt-3" style="width: 18rem;">' +
-                '<img class="card-img-top" src="' + gifStill +'" data-still="" data-animate="' + gifAnimate +'" data-type="" alt="Card image cap">' +
+                gifCard = ('<div class="card mt-3" style="width: 18rem;">' +
+                '<img class="card-img-top" src="' + gifStill +'" data-state="still" data-animate="' + gifAnimate +'" "data-still="'+ gifStill +'"" data-type="" alt="Card image cap">' +
                 '<div class="card-body">' + '<h5 class="card-title">Rating: '+ gifRating +'</h5>' +
-                '<button type="submit" class="btn btn-primary playGif mr-3">Play Gif</button>' +
-                '<button id="saveToFav" type="submit" class="btn btn-success">Save To Favorite</button>' +
+                '<button type="button" class="btn btn-primary playGif mr-3">Play Gif</button>' +
+                '<button id="saveToFav" type="button" class="btn btn-success">Save To Favorite</button>' +
                 '</div>' + '</div>');
-                $(gifBox).append(gifCards);
+                $(gifBox).append(gifCard);
                 $("#gifsHere").append(gifBox);
+                console.log(gifAnimate);    
             }
+            $(document).on("click", ".playGif", function(){
+                var state = $(gifCard).attr("data-state");
+                if(state === "still"){
+                    $(gifCard).attr("src", $(gifCard).attr("data-animate"));
+                    $(gifCard).attr("data-state", "animate");
+                    $(gifCard).text("Pause Gif");
+                };
+                if(state === "animate"){
+                    $(gifCard).attr("src", $(gifCard).attr("data-still"));
+                    $(gifCard).attr("data-state", "still");
+                    $(gifCard).text("Play Gif");
+                };
+                console.log(gifAnimate);
+                console.log(gifStill);
+            });
       });
 }
 
@@ -75,6 +94,7 @@ $(document).on("click", ".topic", function(event){
     console.log($(this).attr("data-type"));
     getGifs(subject);
 });
+
 
 // PSEUDO CODE
 //============================================================
