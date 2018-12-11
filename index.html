@@ -5,23 +5,25 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
-    crossorigin="anonymous">
-    <script
-    src="https://code.jquery.com/jquery-3.3.1.min.js"
-    integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" 
-    crossorigin="anonymous"></script>
+    <!-- Bootstraps -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+        crossorigin="anonymous">
+        <!-- Jquery CDN -->
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+        crossorigin="anonymous"></script>
     <title>Gif Tastic</title>
 </head>
 
 <body>
     <div class="container">
-            <div class="jumbotron">
-                    <h1 class="display-4">Seacrh Your Favorite Gifs Here</h1>
-                    <p class="lead"></p>
-                    <hr class="my-4">
-                    <p>Powered by <a href="https://giphy.com/" target="_blank">GIPHY</a></p>
-                  </div>
+        <!-- Jumbotron -->
+        <div class="jumbotron">
+            <h1 class="display-4">Seacrh Your Favorite Gifs Here</h1>
+            <p class="lead"></p>
+            <hr class="my-4">
+            <p>Powered by <a href="https://giphy.com/" target="_blank">GIPHY</a></p>
+        </div>
+        <!-- Form -->
         <form id="gifsHere">
             <div class="form-group">
                 <label for="exampleFormControlInput1">Scearch Gifs</label>
@@ -47,11 +49,25 @@
                     <option>TBD</option>
                 </select>
             </div>
-            <button id="searchGifs" type="button" class="btn btn-primary btn-lg mb-2">Search</button>
-            <button id="clearGifs" type="button" class="btn btn-secondary btn-lg mb-2">Clear</button>
+            <button id="searchGifs" type="submit" class="btn btn-primary btn-lg mb-3">Search</button>
+            <button id="favoriteGifs" type="submit" class="btn btn-success btn-lg mb-3">Favorites</button>
+            <button id="clearGifs" type="submit" class="btn btn-secondary btn-lg mb-3">Clear</button>
         </form>
-    </div>
-
+         <!-- Card will hold all images -->
+         <!-- <div id="bootCards"></div>
+        <div class="card" style="width: 18rem;">
+            <img class="card-img-top" src="" data-still="" data-animate="" data-type="" alt="Card image cap">
+            <div class="card-body">
+                Rating Goes Here
+                <h5 class="card-title">Rating: </h5>
+                    Animate GIF and Pause Gif
+                <button id="playGif" type="submit" class="btn btn-primary">Play Gif</button>
+                    Move to Favorites
+                <button id="saveToFav" type="submit" class="btn btn-success">Save To Favorite</button>
+            </div>
+        </div>
+    </div> -->
+    <!-- javascript tag -->
     <script src="./assets/javascript/app.js"></script>
 </body>
 
