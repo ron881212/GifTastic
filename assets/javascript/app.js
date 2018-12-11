@@ -7,6 +7,7 @@ var apikey  =   "&api_key=AVVldwR8KOjAphb70VEpxVkX0ffpBPTR";
 // limit is set to user yet, only 5
 var limit   =   "limit=5";
 var favs    =   [];
+var count   =   0;
 var userInput;
 var subject;
 var queryURL;
@@ -32,29 +33,47 @@ function getGifs(subject){
                 // $("#gifsHere").append(gif);
                 gifBox = $("<div>");
                 gifCard = ('<div class="card mt-3" style="width: 18rem;">' +
-                '<img class="card-img-top" src="' + gifStill +'" data-state="still" data-animate="' + gifAnimate +'" "data-still="'+ gifStill +'"" data-type="" alt="Card image cap">' +
+                '<img class="card-img-top gifImage' + count + '" src="' + gifStill +'" data-state="still" data-animate="' + gifAnimate +'" "data-still="'+ gifStill +'"" data-type="" alt="Card image cap">' +
                 '<div class="card-body">' + '<h5 class="card-title">Rating: '+ gifRating +'</h5>' +
-                '<button type="button" class="btn btn-primary playGif mr-3">Play Gif</button>' +
+                '<button type="button" class="btn btn-primary playGif'+ count +' mr-3">Play Gif</button>' +
                 '<button id="saveToFav" type="button" class="btn btn-success">Save To Favorite</button>' +
                 '</div>' + '</div>');
                 $(gifBox).append(gifCard);
                 $("#gifsHere").append(gifBox);
                 console.log(gifAnimate);    
+                count++;
             }
-            $(document).on("click", ".playGif", function(){
-                var state = $(gifCard).attr("data-state");
-                if(state === "still"){
-                    $(gifCard).attr("src", $(gifCard).attr("data-animate"));
-                    $(gifCard).attr("data-state", "animate");
-                    $(gifCard).text("Pause Gif");
-                };
-                if(state === "animate"){
-                    $(gifCard).attr("src", $(gifCard).attr("data-still"));
-                    $(gifCard).attr("data-state", "still");
-                    $(gifCard).text("Play Gif");
-                };
-                console.log(gifAnimate);
-                console.log(gifStill);
+            // Find a way to target gifImage + count, all gifs now have a diffrent class and can be targeted
+            $(document).on("click", ".playGif0", function(){
+                // this works targeting the 2nd gif
+                // $(".gifImage0").attr("src",  $(".gifImage0").attr("data-animate"));
+                // this long path is the path to the text content       you can add textContent at the end of these paths
+                // console.log($( this ).parent().parent().get( 0 ).firstChild.attributes[1].textContent);
+                // this is a path to the src
+                // console.log($( this ).parent().parent().get( 0 ).firstChild.attributes[1]);
+                // this path is the data-animate
+                // console.log($( this ).parent().parent().get( 0 ).firstChild.attributes[3]);
+                // this is the data-still
+                // console.log($( this ).parent().parent().get( 0 ).firstChild.attributes[4]);
+                // console.log($( this ).parent());
+                // console.log($(this).closest("img"));
+                
+            });
+            $(document).on("click", ".playGif1", function(){
+                // this works targeting the 2nd gif
+                $(".gifImage1").attr("src",  $(".gifImage1").attr("data-animate"));
+            });
+            $(document).on("click", ".playGif2", function(){
+                // this works targeting the 2nd gif
+                $(".gifImage2").attr("src",  $(".gifImage2").attr("data-animate"));
+            });
+            $(document).on("click", ".playGif3", function(){
+                // this works targeting the 2nd gif
+                $(".gifImage3").attr("src",  $(".gifImage3").attr("data-animate"));
+            });
+            $(document).on("click", ".playGif4", function(){
+                // this works targeting the 2nd gif
+                $(".gifImage4").attr("src",  $(".gifImage4").attr("data-animate"));
             });
       });
 }
