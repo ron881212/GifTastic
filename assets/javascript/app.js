@@ -8,6 +8,7 @@ var apikey  =   "&api_key=AVVldwR8KOjAphb70VEpxVkX0ffpBPTR";
 var limit   =   "limit=5";
 var favs    =   [];
 var count   =   0;
+// var goldenTicket = 0;
 var userInput;
 var subject;
 var queryURL;
@@ -28,53 +29,57 @@ function getGifs(subject){
             for(let i = 0; i < 5; i++){
                 gifStill = response.data[i].images.fixed_height_still.url;
                 gifAnimate = response.data[i].images.fixed_height.url;
-                var gifRating = response.data[i].rating;
+                gifRating = response.data[i].rating;
                 // gif.attr("src", gifResponse);
                 // $("#gifsHere").append(gif);
                 gifBox = $("<div>");
                 gifCard = ('<div class="card mt-3" style="width: 18rem;">' +
-                '<img class="card-img-top gifImage' + count + '" src="' + gifStill +'" data-state="still" data-animate="' + gifAnimate +'" "data-still="'+ gifStill +'"" data-type="" alt="Card image cap">' +
+                '<img id="item-'+ count +'" class="card-img-top gifImage" src="' + gifStill +'" data-state="still" data-animate="' + gifAnimate +'" data-still="'+ gifStill +'" alt="Card image cap">' +
                 '<div class="card-body">' + '<h5 class="card-title">Rating: '+ gifRating +'</h5>' +
-                '<button type="button" class="btn btn-primary playGif'+ count +' mr-3">Play Gif</button>' +
-                '<button id="saveToFav" type="button" class="btn btn-success">Save To Favorite</button>' +
+                '<button type="button" class="btn btn-primary playGif mr-3" data-type="'+ count +'" data-state="still" >Play Gif</button>' +
+                '<button id="saveToFav" type="button" class="btn btn-success saveGif" data-type="'+ count +'">Save To Favorite</button>' +
                 '</div>' + '</div>');
                 $(gifBox).append(gifCard);
                 $("#gifsHere").append(gifBox);
                 console.log(gifAnimate);    
                 count++;
             }
-            // Find a way to target gifImage + count, all gifs now have a diffrent class and can be targeted
-            $(document).on("click", ".playGif0", function(){
-                // this works targeting the 2nd gif
-                // $(".gifImage0").attr("src",  $(".gifImage0").attr("data-animate"));
-                // this long path is the path to the text content       you can add textContent at the end of these paths
-                // console.log($( this ).parent().parent().get( 0 ).firstChild.attributes[1].textContent);
-                // this is a path to the src
-                // console.log($( this ).parent().parent().get( 0 ).firstChild.attributes[1]);
-                // this path is the data-animate
-                // console.log($( this ).parent().parent().get( 0 ).firstChild.attributes[3]);
-                // this is the data-still
-                // console.log($( this ).parent().parent().get( 0 ).firstChild.attributes[4]);
-                // console.log($( this ).parent());
-                // console.log($(this).closest("img"));
+
+            $(document).on("click", ".playGif", function(){
+                goldenTicket = $(this).attr("data-type");
+                console.log($(this).attr("data-type"));
+                var btnstate = $(this).attr("data-state");
+                // var gifstate = $("#item-" + goldenTicket).attr("src");
+
+                if(btnstate === "still"){
+                    $("#item-" + goldenTicket).attr("src", $("#item-" + goldenTicket).attr("data-animate"));
+                    btnstate = $(this).attr("data-state", "animate");
+                    $(this).text("Stop Gif");
+                    console.log("Im moving"); 
+                }
+
+                if(btnstate === "animate"){
+                    $("#item-" + goldenTicket).attr("src", $("#item-" + goldenTicket).attr("data-still"));
+                    btnstate = $(this).attr("data-state", "still");
+                    $(this).text("Play Gif");
+                    console.log("Im not moving");  
+                    console.log($("#item-" + goldenTicket).attr("data-still"));  
+                    console.log($("#item-" + goldenTicket).attr("data-animate"));  
+                }
                 
             });
-            $(document).on("click", ".playGif1", function(){
-                // this works targeting the 2nd gif
-                $(".gifImage1").attr("src",  $(".gifImage1").attr("data-animate"));
-            });
-            $(document).on("click", ".playGif2", function(){
-                // this works targeting the 2nd gif
-                $(".gifImage2").attr("src",  $(".gifImage2").attr("data-animate"));
-            });
-            $(document).on("click", ".playGif3", function(){
-                // this works targeting the 2nd gif
-                $(".gifImage3").attr("src",  $(".gifImage3").attr("data-animate"));
-            });
-            $(document).on("click", ".playGif4", function(){
-                // this works targeting the 2nd gif
-                $(".gifImage4").attr("src",  $(".gifImage4").attr("data-animate"));
-            });
+            // $(document).on("click", ".playGif2", function(){
+            //     // this works targeting the 2nd gif
+            //     $(".gifImage2").attr("src",  $(".gifImage2").attr("data-animate"));
+            // });
+            // $(document).on("click", ".playGif3", function(){
+            //     // this works targeting the 2nd gif
+            //     $(".gifImage3").attr("src",  $(".gifImage3").attr("data-animate"));
+            // });
+            // $(document).on("click", ".playGif4", function(){
+            //     // this works targeting the 2nd gif
+            //     $(".gifImage4").attr("src",  $(".gifImage4").attr("data-animate"));
+            // });
       });
 }
 
@@ -98,8 +103,6 @@ $(document).on("click", "#searchGifs", function(event){
             $(".lead").append(newButton);
         }
     }
-    // console.log($("#userInput").val());
-    
 });
 
 $(document).on("click", "#clearGifs", function(event){
@@ -113,7 +116,6 @@ $(document).on("click", ".topic", function(event){
     console.log($(this).attr("data-type"));
     getGifs(subject);
 });
-
 
 // PSEUDO CODE
 //============================================================
