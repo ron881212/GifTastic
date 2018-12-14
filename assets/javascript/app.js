@@ -68,18 +68,6 @@ function getGifs(subject){
                 }
                 
             });
-            // $(document).on("click", ".playGif2", function(){
-            //     // this works targeting the 2nd gif
-            //     $(".gifImage2").attr("src",  $(".gifImage2").attr("data-animate"));
-            // });
-            // $(document).on("click", ".playGif3", function(){
-            //     // this works targeting the 2nd gif
-            //     $(".gifImage3").attr("src",  $(".gifImage3").attr("data-animate"));
-            // });
-            // $(document).on("click", ".playGif4", function(){
-            //     // this works targeting the 2nd gif
-            //     $(".gifImage4").attr("src",  $(".gifImage4").attr("data-animate"));
-            // });
       });
 }
 
@@ -105,6 +93,19 @@ $(document).on("click", "#searchGifs", function(event){
     }
 });
 
+function showButtons(){
+    for(let i =0; i < topic.length; i++){
+        var newButton = $("<button>");
+        newButton.attr("type", "button");
+        newButton.attr("data-type", topic[i]);
+        newButton.addClass("topic btn btn-info mr-1 mt-1");
+        newButton.text(topic[i]);
+        $(".lead").append(newButton);
+    }
+};
+
+showButtons();
+
 $(document).on("click", "#clearGifs", function(event){
     event.preventDefault();
     $(".lead").empty();
@@ -117,5 +118,8 @@ $(document).on("click", ".topic", function(event){
     getGifs(subject);
 });
 
+$("#clearGifs").on("click", function(){
+    $("#gifsHere").empty();
+})
 // PSEUDO CODE
 //============================================================
