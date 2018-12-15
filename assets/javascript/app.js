@@ -30,8 +30,6 @@ function getGifs(subject){
                 gifStill = response.data[i].images.fixed_height_still.url;
                 gifAnimate = response.data[i].images.fixed_height.url;
                 gifRating = response.data[i].rating;
-                // gif.attr("src", gifResponse);
-                // $("#gifsHere").append(gif);
                 gifBox = $("<div>");
                 gifCard = ('<div class="card mt-3" style="width: 18rem;">' +
                 '<img id="item-'+ count +'" class="card-img-top gifImage" src="' + gifStill +'" data-state="still" data-animate="' + gifAnimate +'" data-still="'+ gifStill +'" alt="Card image cap">' +
@@ -49,7 +47,7 @@ function getGifs(subject){
                 goldenTicket = $(this).attr("data-type");
                 console.log($(this).attr("data-type"));
                 var btnstate = $(this).attr("data-state");
-                $(body).css("background-image", "url(/myimage.jpg)")
+                // $(body).css("background-image", "url(/myimage.jpg)")
                 // var gifstate = $("#item-" + goldenTicket).attr("src");
 
                 if(btnstate === "still"){
@@ -121,10 +119,12 @@ function showButtons(){
         var newButton = $("<button>");
         newButton.attr("type", "button");
         newButton.attr("data-type", topic[i]);
+        newButton.attr("data-number", [i]);
         newButton.addClass("topic btn btn-info mr-1 mt-1");
         newButton.text(topic[i]);
         $(".lead").append(newButton);
     }
+    
 };
 
 showButtons();
@@ -163,6 +163,33 @@ $(document).on("click", ".topic", function(event){
     var subject = $(this).attr("data-type");
     console.log($(this).attr("data-type"));
     getGifs(subject);
+
+    // $(document).on("click", ".playGif", function(){
+        goldenTicket = $(this).attr("data-number");
+        // console.log($(this).attr("data-number"));
+        btnstate = $(this).attr("data-state");
+        // $(body).css("background-image", "url(/myimage.jpg)")
+        // var gifstate = $("#item-" + goldenTicket).attr("src");
+
+        if(btnstate === "still"){
+            $("#item-" + goldenTicket).attr("src", $("#item-" + goldenTicket).attr("data-animate"));
+            btnstate = $(this).attr("data-state", "animate");
+            $(this).text("Stop Gif");
+            console.log("Im moving"); 
+        }
+
+        if(btnstate === "animate"){
+            $("#item-" + goldenTicket).attr("src", $("#item-" + goldenTicket).attr("data-still"));
+            btnstate = $(this).attr("data-state", "still");
+            $(this).text("Play Gif");
+            console.log("Im not moving");  
+            console.log($("#item-" + goldenTicket).attr("data-still"));  
+            console.log($("#item-" + goldenTicket).attr("data-animate"));  
+        }
+        
+    // });
 });
+
+
 // PSEUDO CODE
 //============================================================
