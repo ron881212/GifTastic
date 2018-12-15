@@ -1,7 +1,7 @@
 // SETUP VARIABLES
 //============================================================
 var topic   =   ["cats", "dogs", "birds", "pigs"];
-var urlBase =   "http://api.giphy.com/v1/gifs/search?q=";
+var urlBase =   "https://api.giphy.com/v1/gifs/search?q=";
 var sample  =   "ryan+gosling";
 var apikey  =   "&api_key=AVVldwR8KOjAphb70VEpxVkX0ffpBPTR&limit=10";
 // limit is set to user yet, only 5
@@ -47,8 +47,6 @@ function getGifs(subject){
                 goldenTicket = $(this).attr("data-type");
                 console.log($(this).attr("data-type"));
                 var btnstate = $(this).attr("data-state");
-                // $(body).css("background-image", "url(/myimage.jpg)")
-                // var gifstate = $("#item-" + goldenTicket).attr("src");
 
                 if(btnstate === "still"){
                     $("#item-" + goldenTicket).attr("src", $("#item-" + goldenTicket).attr("data-animate"));
@@ -160,6 +158,7 @@ $(document).on("click", "#clearGifs", function(event){
 
 $(document).on("click", ".topic", function(event){
     event.preventDefault();
+    $("#myGifs").empty();
     var subject = $(this).attr("data-type");
     console.log($(this).attr("data-type"));
     getGifs(subject);
