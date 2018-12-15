@@ -3,9 +3,9 @@
 var topic   =   ["cats", "dogs", "birds", "pigs"];
 var urlBase =   "http://api.giphy.com/v1/gifs/search?q=";
 var sample  =   "ryan+gosling";
-var apikey  =   "&api_key=AVVldwR8KOjAphb70VEpxVkX0ffpBPTR";
+var apikey  =   "&api_key=AVVldwR8KOjAphb70VEpxVkX0ffpBPTR&limit=10";
 // limit is set to user yet, only 5
-var limit   =   "limit=5";
+// var limit   =   "limit=10";
 var favs    =   [];
 var count   =   0;
 // var goldenTicket = 0;
@@ -26,7 +26,7 @@ function getGifs(subject){
       .then(function(response){
         // console.log(response.data[2].images.fixed_height_still.url);
         console.log(urlBase + subject + apikey);
-            for(let i = 0; i < 5; i++){
+            for(let i = 0; i < 10; i++){
                 gifStill = response.data[i].images.fixed_height_still.url;
                 gifAnimate = response.data[i].images.fixed_height.url;
                 gifRating = response.data[i].rating;
@@ -40,7 +40,7 @@ function getGifs(subject){
                 '<button id="saveToFav" type="button" class="btn btn-success saveGif" data-type="'+ count +'">Save To Favorite</button>' +
                 '</div>' + '</div>');
                 $(gifBox).append(gifCard);
-                $("#gifsHere").append(gifBox);
+                $("#myGifs").append(gifBox);
                 console.log(gifAnimate);    
                 count++;
             }
@@ -49,6 +49,7 @@ function getGifs(subject){
                 goldenTicket = $(this).attr("data-type");
                 console.log($(this).attr("data-type"));
                 var btnstate = $(this).attr("data-state");
+                $(body).css("background-image", "url(/myimage.jpg)")
                 // var gifstate = $("#item-" + goldenTicket).attr("src");
 
                 if(btnstate === "still"){
@@ -91,6 +92,28 @@ $(document).on("click", "#searchGifs", function(event){
             $(".lead").append(newButton);
         }
     }
+    $(document).on("click", ".playGif", function(){
+        goldenTicket = $(this).attr("data-type");
+        console.log($(this).attr("data-type"));
+        var btnstate = $(this).attr("data-state");
+        // var gifstate = $("#item-" + goldenTicket).attr("src");
+
+        if(btnstate === "still"){
+            $("#item-" + goldenTicket).attr("src", $("#item-" + goldenTicket).attr("data-animate"));
+            btnstate = $(this).attr("data-state", "animate");
+            $(this).text("Stop Gif");
+            console.log("Im moving"); 
+        }
+
+        if(btnstate === "animate"){
+            $("#item-" + goldenTicket).attr("src", $("#item-" + goldenTicket).attr("data-still"));
+            btnstate = $(this).attr("data-state", "still");
+            $(this).text("Play Gif");
+            console.log("Im not moving");  
+            console.log($("#item-" + goldenTicket).attr("data-still"));  
+            console.log($("#item-" + goldenTicket).attr("data-animate"));  
+        }       
+    });
 });
 
 function showButtons(){
@@ -108,7 +131,31 @@ showButtons();
 
 $(document).on("click", "#clearGifs", function(event){
     event.preventDefault();
-    $(".lead").empty();
+    $("#myGifs").empty();
+    count = 0;
+    $(document).on("click", ".playGif", function(){
+        goldenTicket = $(this).attr("data-type");
+        console.log($(this).attr("data-type"));
+        var btnstate = $(this).attr("data-state");
+        // var gifstate = $("#item-" + goldenTicket).attr("src");
+
+        if(btnstate === "still"){
+            $("#item-" + goldenTicket).attr("src", $("#item-" + goldenTicket).attr("data-animate"));
+            btnstate = $(this).attr("data-state", "animate");
+            $(this).text("Stop Gif");
+            console.log("Im moving"); 
+        }
+
+        if(btnstate === "animate"){
+            $("#item-" + goldenTicket).attr("src", $("#item-" + goldenTicket).attr("data-still"));
+            btnstate = $(this).attr("data-state", "still");
+            $(this).text("Play Gif");
+            console.log("Im not moving");  
+            console.log($("#item-" + goldenTicket).attr("data-still"));  
+            console.log($("#item-" + goldenTicket).attr("data-animate"));  
+        }
+        
+    });
 });
 
 $(document).on("click", ".topic", function(event){
@@ -117,9 +164,5 @@ $(document).on("click", ".topic", function(event){
     console.log($(this).attr("data-type"));
     getGifs(subject);
 });
-
-$("#clearGifs").on("click", function(){
-    $("#gifsHere").empty();
-})
 // PSEUDO CODE
 //============================================================

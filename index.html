@@ -30,16 +30,6 @@
                 <input type="text" class="form-control" id="userInput" placeholder="type gifs here">
             </div>
             <div class="form-group">
-                <label for="exampleFormControlSelect1">How many Gifs</label>
-                <select class="form-control" id="returnedGifs">
-                    <option>1</option>
-
-                    <option>5</option>
-
-                    <option>10</option>
-                </select>
-            </div>
-            <div class="form-group">
                 <label for="exampleFormControlSelect1">subjects</label>
                 <select class="form-control" id="subjects">
                     <option>Gifs</option>
@@ -50,9 +40,9 @@
                 </select>
             </div>
             <button id="searchGifs" type="submit" class="btn btn-primary btn-lg mb-3">Search</button>
-            <button id="favoriteGifs" type="submit" class="btn btn-success btn-lg mb-3">Favorites</button>
             <button id="clearGifs" type="submit" class="btn btn-secondary btn-lg mb-3">Clear</button>
         </form>
+        <div id="myGifs"></div>
          <!-- Card will hold all images -->
          <!-- <div id="bootCards"></div>
         <div class="card" style="width: 18rem;">
