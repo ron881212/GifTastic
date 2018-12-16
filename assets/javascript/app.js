@@ -1,14 +1,11 @@
 // SETUP VARIABLES
 //============================================================
-var topic   =   ["cats", "dogs", "birds", "pigs"];
+var topic   =   ["mortal kombat", "mario", "pokemon", "street fighter", "battlefield", "uncharted", "tomb raider", "watch dogs", "pacman", "tekken"];
 var urlBase =   "https://api.giphy.com/v1/gifs/search?q=";
 var sample  =   "ryan+gosling";
 var apikey  =   "&api_key=AVVldwR8KOjAphb70VEpxVkX0ffpBPTR&limit=10";
-// limit is set to user yet, only 5
-// var limit   =   "limit=10";
 var favs    =   [];
 var count   =   0;
-// var goldenTicket = 0;
 var userInput;
 var subject;
 var queryURL;
@@ -24,7 +21,6 @@ function getGifs(subject){
         method: "GET"
     })
       .then(function(response){
-        // console.log(response.data[2].images.fixed_height_still.url);
         console.log(urlBase + subject + apikey);
             for(let i = 0; i < 10; i++){
                 gifStill = response.data[i].images.fixed_height_still.url;
@@ -42,29 +38,8 @@ function getGifs(subject){
                 console.log(gifAnimate);    
                 count++;
             }
+            // $(".jumbotron").css("background-image", "url("+gifStill+")");
 
-            $(document).on("click", ".playGif", function(){
-                goldenTicket = $(this).attr("data-type");
-                console.log($(this).attr("data-type"));
-                var btnstate = $(this).attr("data-state");
-
-                if(btnstate === "still"){
-                    $("#item-" + goldenTicket).attr("src", $("#item-" + goldenTicket).attr("data-animate"));
-                    btnstate = $(this).attr("data-state", "animate");
-                    $(this).text("Stop Gif");
-                    console.log("Im moving"); 
-                }
-
-                if(btnstate === "animate"){
-                    $("#item-" + goldenTicket).attr("src", $("#item-" + goldenTicket).attr("data-still"));
-                    btnstate = $(this).attr("data-state", "still");
-                    $(this).text("Play Gif");
-                    console.log("Im not moving");  
-                    console.log($("#item-" + goldenTicket).attr("data-still"));  
-                    console.log($("#item-" + goldenTicket).attr("data-animate"));  
-                }
-                
-            });
       });
 }
 
@@ -75,10 +50,11 @@ function getGifs(subject){
 $(document).on("click", "#searchGifs", function(event){
     event.preventDefault();
     if($("#userInput").val() !== ""){
-
+        $("#myGifs").empty();
         $(".lead").empty();
         topic.push($("#userInput").val());
-
+        var subject = $("#userInput").val();
+        getGifs(subject);
         for(let i =0; i < topic.length; i++){
             var newButton = $("<button>");
             newButton.attr("type", "button");
@@ -88,28 +64,6 @@ $(document).on("click", "#searchGifs", function(event){
             $(".lead").append(newButton);
         }
     }
-    $(document).on("click", ".playGif", function(){
-        goldenTicket = $(this).attr("data-type");
-        console.log($(this).attr("data-type"));
-        var btnstate = $(this).attr("data-state");
-        // var gifstate = $("#item-" + goldenTicket).attr("src");
-
-        if(btnstate === "still"){
-            $("#item-" + goldenTicket).attr("src", $("#item-" + goldenTicket).attr("data-animate"));
-            btnstate = $(this).attr("data-state", "animate");
-            $(this).text("Stop Gif");
-            console.log("Im moving"); 
-        }
-
-        if(btnstate === "animate"){
-            $("#item-" + goldenTicket).attr("src", $("#item-" + goldenTicket).attr("data-still"));
-            btnstate = $(this).attr("data-state", "still");
-            $(this).text("Play Gif");
-            console.log("Im not moving");  
-            console.log($("#item-" + goldenTicket).attr("data-still"));  
-            console.log($("#item-" + goldenTicket).attr("data-animate"));  
-        }       
-    });
 });
 
 function showButtons(){
@@ -118,7 +72,7 @@ function showButtons(){
         newButton.attr("type", "button");
         newButton.attr("data-type", topic[i]);
         newButton.attr("data-number", [i]);
-        newButton.addClass("topic btn btn-info mr-1 mt-1");
+        newButton.addClass("topic btn mr-1 mt-1");
         newButton.text(topic[i]);
         $(".lead").append(newButton);
     }
@@ -131,29 +85,6 @@ $(document).on("click", "#clearGifs", function(event){
     event.preventDefault();
     $("#myGifs").empty();
     count = 0;
-    $(document).on("click", ".playGif", function(){
-        goldenTicket = $(this).attr("data-type");
-        console.log($(this).attr("data-type"));
-        var btnstate = $(this).attr("data-state");
-        // var gifstate = $("#item-" + goldenTicket).attr("src");
-
-        if(btnstate === "still"){
-            $("#item-" + goldenTicket).attr("src", $("#item-" + goldenTicket).attr("data-animate"));
-            btnstate = $(this).attr("data-state", "animate");
-            $(this).text("Stop Gif");
-            console.log("Im moving"); 
-        }
-
-        if(btnstate === "animate"){
-            $("#item-" + goldenTicket).attr("src", $("#item-" + goldenTicket).attr("data-still"));
-            btnstate = $(this).attr("data-state", "still");
-            $(this).text("Play Gif");
-            console.log("Im not moving");  
-            console.log($("#item-" + goldenTicket).attr("data-still"));  
-            console.log($("#item-" + goldenTicket).attr("data-animate"));  
-        }
-        
-    });
 });
 
 $(document).on("click", ".topic", function(event){
@@ -163,32 +94,27 @@ $(document).on("click", ".topic", function(event){
     console.log($(this).attr("data-type"));
     getGifs(subject);
 
-    // $(document).on("click", ".playGif", function(){
-        goldenTicket = $(this).attr("data-number");
-        // console.log($(this).attr("data-number"));
-        btnstate = $(this).attr("data-state");
-        // $(body).css("background-image", "url(/myimage.jpg)")
-        // var gifstate = $("#item-" + goldenTicket).attr("src");
-
-        if(btnstate === "still"){
-            $("#item-" + goldenTicket).attr("src", $("#item-" + goldenTicket).attr("data-animate"));
-            btnstate = $(this).attr("data-state", "animate");
-            $(this).text("Stop Gif");
-            console.log("Im moving"); 
-        }
-
-        if(btnstate === "animate"){
-            $("#item-" + goldenTicket).attr("src", $("#item-" + goldenTicket).attr("data-still"));
-            btnstate = $(this).attr("data-state", "still");
-            $(this).text("Play Gif");
-            console.log("Im not moving");  
-            console.log($("#item-" + goldenTicket).attr("data-still"));  
-            console.log($("#item-" + goldenTicket).attr("data-animate"));  
-        }
-        
-    // });
 });
 
+$(document).on("click", ".playGif", function(){
+    goldenTicket = $(this).attr("data-type");
+    console.log($(this).attr("data-type"));
+    var btnstate = $(this).attr("data-state");
+    
+    if(btnstate === "still"){
+        $("#item-" + goldenTicket).attr("src", $("#item-" + goldenTicket).attr("data-animate"));
+        btnstate = $(this).attr("data-state", "animate");
+        $(this).text("Stop Gif");
+        console.log("Im moving"); 
+    }
 
-// PSEUDO CODE
-//============================================================
+    if(btnstate === "animate"){
+        $("#item-" + goldenTicket).attr("src", $("#item-" + goldenTicket).attr("data-still"));
+        btnstate = $(this).attr("data-state", "still");
+        $(this).text("Play Gif");
+        console.log("Im not moving");  
+        console.log($("#item-" + goldenTicket).attr("data-still"));  
+        console.log($("#item-" + goldenTicket).attr("data-animate"));  
+    }
+    
+});
