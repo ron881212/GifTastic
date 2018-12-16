@@ -59,7 +59,7 @@ $(document).on("click", "#searchGifs", function(event){
             var newButton = $("<button>");
             newButton.attr("type", "button");
             newButton.attr("data-type", topic[i]);
-            newButton.addClass("topic btn btn-info mr-1 mt-1");
+            newButton.addClass("topic btn mr-1 mt-1");
             newButton.text(topic[i]);
             $(".lead").append(newButton);
         }
