@@ -27,11 +27,11 @@ function getGifs(subject){
                 gifAnimate = response.data[i].images.fixed_height.url;
                 gifRating = response.data[i].rating;
                 gifBox = $("<div>");
-                gifCard = ('<div class="card mt-3" style="width: 18rem;">' +
+                gifCard = ('<div class="card mt-3 mr-4 card-'+ count+'" style="width: 18rem;">' +
                 '<img id="item-'+ count +'" class="card-img-top gifImage" src="' + gifStill +'" data-state="still" data-animate="' + gifAnimate +'" data-still="'+ gifStill +'" alt="Card image cap">' +
                 '<div class="card-body">' + '<h5 class="card-title">Rating: '+ gifRating +'</h5>' +
                 '<button type="button" class="btn btn-primary playGif mr-3" data-type="'+ count +'" data-state="still" >Play Gif</button>' +
-                '<button id="saveToFav" type="button" class="btn btn-success saveGif" data-type="'+ count +'">Save To Favorite</button>' +
+                '<button id="saveToFav" type="button" class="btn btn-danger removeGif" data-type="'+ count +'">Hide</button>' +
                 '</div>' + '</div>');
                 $(gifBox).append(gifCard);
                 $("#myGifs").append(gifBox);
@@ -115,6 +115,10 @@ $(document).on("click", ".playGif", function(){
         console.log("Im not moving");  
         console.log($("#item-" + goldenTicket).attr("data-still"));  
         console.log($("#item-" + goldenTicket).attr("data-animate"));  
-    }
-    
+    }  
+});
+
+$(document).on("click", ".removeGif", function(){
+    var remove = $(this).attr("data-type");
+    $(".card-"+ remove).empty();
 });
